@@ -32,7 +32,7 @@ class PointProcess(object):
 		raise NotImplementedException
 
 
-	def log_likelihood(self, event_times):
+	def log_likelihood(self, events):
 		"""
 		Evaluates the log-likelihood of a given
 		list of event times under the current
@@ -40,8 +40,8 @@ class PointProcess(object):
 
 		Parameters
 		----------
-		event_times : list
-			A sorted list of observed event times.
+		events : list
+			A sorted list of observed events.
 
 		Returns
 		-------
@@ -51,7 +51,7 @@ class PointProcess(object):
 		raise NotImplementedException
 
 
-	def train_step(self, event_times, t_start, t_end, record=True):
+	def train_step(self, events, t_start, t_end, record=True):
 		"""
 		Executes one step of training. In
 		Bayesian statistics, this means sampling
@@ -62,8 +62,8 @@ class PointProcess(object):
 
 		Parameters
 		----------
-		event_times : list
-			A sorted list of observed event times.
+		events : list
+			A sorted list of observed events.
 		t_start : float
 			The starting time of the observed time window.
 		t_end : float
@@ -75,15 +75,15 @@ class PointProcess(object):
 		raise NotImplementedException
 
 
-	def fit(self, event_times, t_start, t_end, burn_in=5000, train_its=20000):
+	def fit(self, events, t_start, t_end, burn_in=5000, train_its=20000):
 		"""
 		Fit the model to data by executing
 		multiple training steps.
 
 		Parameters
 		----------
-		event_times : list
-			A sorted list of observed event times.
+		events : list
+			A sorted list of observed events.
 		t_start : float
 			The starting time of the observed time window.
 		t_end : float
@@ -98,15 +98,15 @@ class PointProcess(object):
 		"""
 		for it in range(train_its):
 			record = it >= burn_in
-			self.train_step(event_times, t_start, t_end, record=record)
+			self.train_step(events, t_start, t_end, record=record)
 
 
-
+	"""
 	def fit(self, event_times, event_locs, t_start, t_end, burn_in=5000, train_its=20000):
 		for it in range(train_its):
 			record = it >= burn_in
 			self.train_step(event_times, event_locs, t_start, t_end, record=record)
 			if it % 1000 == 0:
 				print it
-
+	"""
 

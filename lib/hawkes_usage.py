@@ -9,16 +9,18 @@ mu_true = 0.5
 alpha_true = 0.9
 beta_true = 1.0
 model_true = Hawkes(mu_true, alpha_true, beta_true)
-event_times = model_true.sample(t_start, t_end)
+events = model_true.sample(t_start, t_end)
+event_times = events['Event_Date']
 N = len(event_times)
-print 'total num. events: ', N
+print 'num. events: ', N
+print 'events: ', events
 
 # train model
 mu_init = -np.log(np.random.uniform()) / 0.1
 alpha_init = -np.log(np.random.uniform()) / 0.1
 beta_init = -np.log(np.random.uniform()) / 0.1
 model_infer = Hawkes(mu_init, alpha_init, beta_init)
-model_infer.fit(event_times, t_start, t_end, burn_in=50000, train_its=200000)
+model_infer.fit(events, t_start, t_end, burn_in=50000, train_its=200000)
 
 # compute approximate posterior statistics
 mu_avg = np.mean(model_infer.mu.history)

@@ -6,15 +6,15 @@ t_start = 0.0
 t_end = 10.0
 lambda_true = 1.0
 model_true = Poisson(lambda_true)
-event_times = model_true.sample(t_start, t_end)
+events = model_true.sample(t_start, t_end)
 
 lam_init = -np.log(np.random.uniform()) / 0.1
 model_infer = Poisson(lam_init)
-model_infer.fit(event_times, t_start, t_end)
+model_infer.fit(events, t_start, t_end)
 
 lambda_avg = np.mean(model_infer.lam.history)
 lambda_var = np.var(model_infer.lam.history)
-N = len(event_times)
+N = len(events)
 dT = t_end - t_start
 print 'true posterior mean, var: %f, %f' % ((N+1)/dT, (N+1)/np.square(dT))
 print 'inferred posterior mean, var: %f, %f' % (lambda_avg, lambda_var)
