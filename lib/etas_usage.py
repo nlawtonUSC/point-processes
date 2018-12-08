@@ -16,7 +16,7 @@ events = model_true.sample(t_start, t_end)
 event_times = events['Event_Date']
 event_locs = events['Location']
 N = len(event_times)
-print 'total num. events: ', N
+print 'number of events: ', N
 
 # train model
 mu_init = -np.log(np.random.uniform()) / 0.1

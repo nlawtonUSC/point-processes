@@ -12,7 +12,7 @@ model_true = Hawkes(mu_true, alpha_true, beta_true)
 events = model_true.sample(t_start, t_end)
 event_times = events['Event_Date']
 N = len(event_times)
-print 'num. events: ', N
+print 'number of events: ', N
 
 # train model
 mu_init = -np.log(np.random.uniform()) / 0.1
