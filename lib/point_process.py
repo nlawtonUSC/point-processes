@@ -97,6 +97,8 @@ class PointProcess(object):
 			The number of training steps to execute.
 		"""
 		for it in range(train_its):
+			if it % 1000 == 0:
+				print 'it. %d/%d' % (it, train_its)
 			record = it >= burn_in
 			self.train_step(events, t_start, t_end, record=record)
 

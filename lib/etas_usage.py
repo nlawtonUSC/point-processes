@@ -12,7 +12,9 @@ loc_var = 1.0
 wx = 100.0
 wy = 100.0
 model_true = Etas(mu_true, alpha_true, beta_true, loc_var, wx, wy)
-event_times, event_locs = model_true.sample(t_start, t_end)
+events = model_true.sample(t_start, t_end)
+event_times = events['Event_Date']
+event_locs = events['Location']
 N = len(event_times)
 print 'total num. events: ', N
 
@@ -21,7 +23,7 @@ mu_init = -np.log(np.random.uniform()) / 0.1
 alpha_init = -np.log(np.random.uniform()) / 0.1
 beta_init = -np.log(np.random.uniform()) / 0.1
 model_infer = Etas(mu_init, alpha_init, beta_init, loc_var, wx, wy)
-model_infer.fit(event_times, event_locs, t_start, t_end, burn_in=5000, train_its=20000)
+model_infer.fit(events, t_start, t_end, burn_in=5000, train_its=20000)
 
 # compute approximate posterior statistics
 mu_avg = np.mean(model_infer.mu.history)

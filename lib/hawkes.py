@@ -114,7 +114,7 @@ class Hawkes(PointProcess):
 		self.mu.mcmc_update(self.parents, t_start, t_end, record=record)
 		self.alpha.mcmc_update(self.beta.value, self.parents, events, t_start, t_end, record=record)
 		self.beta.mcmc_update(self.alpha.value, self.parents, events, t_start, t_end, record=record)
-		for i in range(10):
+		for i in range(100):
 			child_idx = np.random.randint(num_events)
 			self.parent_params[child_idx].mcmc_update(self.mu.value, self.alpha.value, self.beta.value, events, t_start, t_end, record=record)
 			self.parents[child_idx] = self.parent_params[child_idx].value

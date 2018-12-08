@@ -4,7 +4,7 @@ from hawkes import Hawkes
 
 # generate synthetic data
 t_start = 0.0
-t_end = 20.0
+t_end = 50.0
 mu_true = 0.5
 alpha_true = 0.9
 beta_true = 1.0
@@ -13,14 +13,13 @@ events = model_true.sample(t_start, t_end)
 event_times = events['Event_Date']
 N = len(event_times)
 print 'num. events: ', N
-print 'events: ', events
 
 # train model
 mu_init = -np.log(np.random.uniform()) / 0.1
 alpha_init = -np.log(np.random.uniform()) / 0.1
 beta_init = -np.log(np.random.uniform()) / 0.1
 model_infer = Hawkes(mu_init, alpha_init, beta_init)
-model_infer.fit(events, t_start, t_end, burn_in=50000, train_its=200000)
+model_infer.fit(events, t_start, t_end, burn_in=5000, train_its=20000)
 
 # compute approximate posterior statistics
 mu_avg = np.mean(model_infer.mu.history)
